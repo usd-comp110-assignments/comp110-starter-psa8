@@ -53,7 +53,7 @@ def lazy_mouse(env, mouse_id):
         return 'UP'
 
     # 3. Check DOWN
-    if r < GRID_SIZE - 1 and env.grid[r + 1][c] == 1:
+    if r < len(env.grid) - 1 and env.grid[r + 1][c] == 1:
         return 'DOWN'
 
     # 4. Check LEFT
@@ -61,7 +61,7 @@ def lazy_mouse(env, mouse_id):
         return 'LEFT'
 
     # 5. Check RIGHT
-    if c < GRID_SIZE - 1 and env.grid[r][c + 1] == 1:
+    if c < len(env.grid) - 1 and env.grid[r][c + 1] == 1:
         return 'RIGHT'
 
     # 6. No adjacent food → stay
