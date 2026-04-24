@@ -18,6 +18,10 @@ def find_first_food(grid):
 
     return None # Placeholder return; replace with actual logic
 
+def count_food_by_direction(grid, mouse_row, mouse_col):
+    
+    return None # Placeholder return; replace with actual logic
+
 
 def smart_mouse(env, mouse_id):
 
@@ -73,10 +77,10 @@ def lazy_mouse(env, mouse_id):
 #   def custom_mouse(env, mouse_id): ...
 #   mice["custom"] = custom_mouse
 mice = {
-    "Lazy": lazy_mouse,
-    "Good": good_mouse,
-    "Smart": smart_mouse,
-    "Custom": custom_mouse
+    "Lazy": (lazy_mouse,""),
+    "Good": (good_mouse,""),
+    "Smart": (smart_mouse,""),
+    "Custom": (custom_mouse,"")
 }
 
 # -------------------------------------------------
@@ -84,11 +88,19 @@ mice = {
 # -------------------------------------------------
 
 
-def run_simulation(canvas, mouseA_fn, mouseB_fn, status_callback):
-    '''
-    Runs the simulation using the mice specified above and the configuration file.
-    '''
-    env = Environment(canvas, status_callback=status_callback)
+def run_simulation(canvas, mouseA_fn, mouseB_fn, mouse1_img, mouse2_img, status_callback):
+    """
+    Runs the mouse simulation with two mice
+
+    Parameters:
+    canvas(Tkinter canvas): board for the simulation
+    mouseA_fn (function): function to run mouse A
+    mouseB_fn (function): function to run mouse B
+    mouse1_image (string): filename for mouse 1 image
+    mouse2_image (string): filename for mouse 2 image
+    
+    """
+    env = Environment(canvas, mouse1_img=mouse1_img, mouse2_img=mouse2_img, status_callback=status_callback)
 
     for _ in range(TURNS):
         env.randomly_add_dirt()  # conceptually: randomly add food
@@ -136,8 +148,8 @@ if __name__ == "__main__":
         print("Invalid choice for Mouse B; defaulting to first mouse.")
         nameB = mouse_names[0]
 
-    mouseA_fn = mice[nameA]
-    mouseB_fn = mice[nameB]
+    mouseA_fn = mice[nameA][0]
+    mouseB_fn = mice[nameB][0]
 
     print(f"\nRunning two-mouse simulation: Mouse 1 = {nameA}, Mouse 2 = {nameB}\n")
 
@@ -164,11 +176,14 @@ if __name__ == "__main__":
     legend_mouse1_img = None
     legend_mouse2_img = None
     try:
-        legend_mouse1_img = tk.PhotoImage(file="mouse1.png")
-        legend_mouse2_img = tk.PhotoImage(file="mouse2.png")
+        if mice[nameA][1] != "":
+            MOUSE1 = "images/"+mice[nameA][1]
+        if mice[nameB][1] != "":
+            MOUSE2 = "images/"+mice[nameB][1]
+        legend_mouse1_img = tk.PhotoImage(file=MOUSE1)
+        legend_mouse2_img = tk.PhotoImage(file=MOUSE2)
     except Exception as e:
         print("Warning: could not load legend images:", e)
-
     # Mouse 1 legend
     if legend_mouse1_img is not None:
         mouse1_img_label = tk.Label(legend_frame, image=legend_mouse1_img)
@@ -267,7 +282,7 @@ if __name__ == "__main__":
             label_B.config(text=line)
 
     # Start simulation after GUI loads
-    root.after(100, lambda: run_simulation(canvas, mouseA_fn, mouseB_fn, status_callback))
+    root.after(100, lambda: run_simulation(canvas, mouseA_fn, mouseB_fn, legend_mouse1_img, legend_mouse2_img, status_callback))
 
     # Run event loop
     root.mainloop()

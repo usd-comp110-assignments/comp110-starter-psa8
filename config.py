@@ -2,8 +2,13 @@ import random
 import time
 import tkinter as tk
 
+# Mouse Variables
+MOUSE1 = "images/mouse1.png"
+MOUSE2 = 'images/mouse2.png'
+CHEESE = 'images/food.png'
+
 # Grid and simulation settings
-# DO NOT CHANGE VALUES (for grading consistency)
+# DO NOT CHANGE VALUES
 GRID_SIZE = 8
 DIRT_PROB = 0.005      # Probability of food appearing per turn (1 = food, 0 = empty)
 TURNS = 200
@@ -42,7 +47,7 @@ class Environment:
         * mouse1.png for Mouse A, mouse2.png for Mouse B
     """
 
-    def __init__(self, canvas, status_callback=None):
+    def __init__(self, canvas, mouse1_img=None, mouse2_img=None, status_callback=None):
         # 0 = empty, 1 = food
         self.grid = [[0 for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
 
@@ -70,9 +75,15 @@ class Environment:
         self.img_mouseB = None
         self.use_images = False
         try:
-            self.img_food = tk.PhotoImage(file="food.png")
-            self.img_mouseA = tk.PhotoImage(file="mouse1.png")
-            self.img_mouseB = tk.PhotoImage(file="mouse2.png")
+            self.img_food = tk.PhotoImage(file=CHEESE)
+            if mouse1_img is None:
+                self.img_mouseA = tk.PhotoImage(file=MOUSE1)
+            else:
+                self.img_mouseA = mouse1_img
+            if mouse2_img is None:
+                self.img_mouseB = tk.PhotoImage(file=MOUSE1)
+            else:
+                self.img_mouseB = mouse2_img
             # Only use images if all three loaded successfully
             if self.img_food and self.img_mouseA and self.img_mouseB:
                 self.use_images = True
