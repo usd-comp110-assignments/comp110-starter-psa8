@@ -112,16 +112,10 @@ def run_simulation(canvas, mouseA_fn, mouseB_fn, mouse1_img, mouse2_img, status_
         # Environment applies both actions, with scoring + collision logic
         env.perform_actions(actionA, actionB, performance_two_mice)
 
-    remaining_food = env.count_ones()
-
-    final_A = env.score["A"] + PENALTY_PER_REMAINING_FOOD_AT_END * remaining_food
-    final_B = env.score["B"] + PENALTY_PER_REMAINING_FOOD_AT_END * remaining_food
 
     print("\nSimulation finished.")
-    print("Remaining food tiles:", remaining_food)
-    print(f"Penalty for remaining food: {PENALTY_PER_REMAINING_FOOD_AT_END * remaining_food}")
-    print(f"Mouse A base score: {env.score['A']}, final with penalty: {final_A}")
-    print(f"Mouse B base score: {env.score['B']}, final with penalty: {final_B}")
+    print(f"Mouse A base score: {env.score['A']}")
+    print(f"Mouse B base score: {env.score['B']}")
 
 
 if __name__ == "__main__":
