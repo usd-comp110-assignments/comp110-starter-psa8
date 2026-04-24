@@ -90,7 +90,7 @@ mice = {
 
 def run_simulation(canvas, mouseA_fn, mouseB_fn, mouse1_img, mouse2_img, status_callback):
     """
-    Runs the mous simulationw ith two mice
+    Runs the mouse simulation with two mice
 
     Parameters:
     canvas(Tkinter canvas): board for the simulation
