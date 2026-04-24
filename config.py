@@ -23,7 +23,7 @@ WALL_BUMP = -500                        # -500 for bumping into a wall
 STREAK_BONUS = 400                      # +400 for 3 consecutive successful eats
 IDLE_PENALTY = -10                      # -10 for staying idle
 EXPLORED_NEW_TILE = 10                  # +10 for visiting a new tile
-PENALTY_PER_REMAINING_FOOD_AT_END = -200  # -200 per remaining food tile at the end
+#PENALTY_PER_REMAINING_FOOD_AT_END = -200  # -200 per remaining food tile at the end, removed since this is a race, not an individual activity
 MOUSE_COLLISION = -10                   # -10 for colliding with another mouse
 
 
